@@ -38,36 +38,38 @@ app.post("/sendmail", async (req, res) => {
   const emailSubject = req.body.email_subject;
   const emailBody = req.body.email_body;
 
-  const { data, error } = await supabase.auth.getUser(token);
+  console.log(req.body);
 
-  if (data.user) {
-    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-    const msg = {
-      to: emailTo, // Change to your recipient
-      from: emailFrom, // Change to your verified sender
-      subject: emailSubject,
-      html: emailBody,
-    };
+  // const { data, error } = await supabase.auth.getUser(token);
 
-    sgMail
-      .send(msg)
-      .then(() => {
-        console.log("Email sent");
-        res.json({ message: "E-mail sent!" });
-        res.status(200);
-        res.send();
-      })
-      .catch((error) => {
-        console.error(error);
-        res.json({ message: "The e-mail couldn't be sent.", error });
-        res.status(404);
-        res.send();
-      });
-  } else {
-    res.json({ message: "User invalid", user: data.user, valid: false });
-    res.status(403);
-    res.send();
-  }
+  // if (data.user) {
+  //   sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+  //   const msg = {
+  //     to: emailTo, // Change to your recipient
+  //     from: emailFrom, // Change to your verified sender
+  //     subject: emailSubject,
+  //     html: emailBody,
+  //   };
+
+  //   sgMail
+  //     .send(msg)
+  //     .then(() => {
+  //       console.log("Email sent");
+  //       res.json({ message: "E-mail sent!" });
+  //       res.status(200);
+  //       res.send();
+  //     })
+  //     .catch((error) => {
+  //       console.error(error);
+  //       res.json({ message: "The e-mail couldn't be sent.", error });
+  //       res.status(404);
+  //       res.send();
+  //     });
+  // } else {
+  //   res.json({ message: "User invalid", user: data.user, valid: false });
+  //   res.status(403);
+  //   res.send();
+  // }
 });
 
 const html = `
